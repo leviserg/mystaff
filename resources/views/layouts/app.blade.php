@@ -82,26 +82,10 @@
         </main>
     </div>
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/datatable.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src = "{{ asset('js/jqueryDataTables.js') }}" defer ></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-    $(function() {
-        $('#data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('admin.getdata') !!}',
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'place', name: 'place' },
-                { data: 'salary', name: 'salary' },
-                { data: 'avatar', name: 'avatar' },
-                { data: 'chief', name: 'chief' }
-            ]
-        });
-    });
-    </script>
+        @stack('scripts')
 </body>
 </html>

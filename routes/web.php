@@ -22,4 +22,4 @@ Auth::routes();
 Route::get('/home', 'AdminController@index');
 
 Route::get('/admin', 'AdminController@admin')->name('admin');
-Route::get('/admin/getdata', 'AdminController@admin')->name('admin.getdata');
+Route::get('/admin/getdata', 'AdminController@getdata')->name('admin.getdata');
