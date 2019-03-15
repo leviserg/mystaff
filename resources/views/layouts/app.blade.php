@@ -22,6 +22,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/html5shiv.js') }}"></script>
     <script src="{{ asset('js/response.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/popper.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 
 </head>
 <body>
@@ -83,9 +86,9 @@
     </div>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script src = "{{ asset('js/jqueryDataTables.js') }}" defer ></script>
     <script src="{{ asset('js/app.js') }}"></script>
         @stack('scripts')
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 </body>
 </html>

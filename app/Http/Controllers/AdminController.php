@@ -69,8 +69,8 @@ class AdminController extends Controller
      */
     public function getdata()
     {
-        $chf = Place0::join('places', 'place0s.place', '=', 'places.id')
-            ->select('place0s.id', 'places.place as place_name','place0s.name','place0s.salary','place0s.created_at','place0s.chief as chief_name','place0s.avatar');
+       $chf = Place0::join('places', 'place0s.place', '=', 'places.id')
+            ->select('place0s.id', 'places.place as place_name','place0s.name','place0s.salary','place0s.created_at','place0s.name as chief_name','place0s.avatar');
         $dep = Place1::join('places', 'place1s.place', '=', 'places.id')
             ->join('place0s', 'place1s.chief', '=', 'place0s.id')
             ->select('place1s.id', 'places.place as place_name','place1s.name','place1s.salary','place1s.created_at','place0s.name as chief_name','place1s.avatar');

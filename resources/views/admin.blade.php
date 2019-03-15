@@ -11,6 +11,7 @@
                             <th>Empl.Date</th>
                             <th>Boss</th>
                             <th>ImgUrl</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                 </table>
@@ -32,7 +33,12 @@
                     { data: 'salary', name: 'salary' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'chief_name', name: 'chief_name' },
-                    { data: 'avatar', name: 'avatar' }
+                    {"data": null,
+                        "defaultContent": "<img src='avatar'></img>"
+                    },
+                    { "data": null,
+                        "defaultContent": "<button class='primary'>Edit</button>"
+                    }
                 ]
             });
         });
