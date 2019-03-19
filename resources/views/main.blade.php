@@ -11,7 +11,10 @@
                         <ul>
                             @foreach($mgrs[$dep->id-1] as $mgr)
                             <li><h5>{{$mgr->placeName->place}}: <b>{{$mgr->name}}</b>, Salary: <b>{{$mgr->salary}}</b>, Employment: <b>{{$mgr->created_at}}</b>, Boss: {{$mgr->chiefName->name}}</h5>
-                                <!-- -->
+                            <!--                               
+                                <ul>
+                                </ul>
+                            -->
                             </li>
                             @endforeach
                         </ul>

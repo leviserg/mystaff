@@ -48,22 +48,22 @@ class MainController extends Controller
         for($i=0; $i<count($chiefs); $i++){
             //$ld = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
             //$deps[$i] = Place1Resource::collection($ld);
-            $deps[$i] = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
+            $deps[$i] = Place1::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();
         }
 
         $mem = Place1::all()->count();
         $mgrs = [];
         for($i=0; $i<$mem;$i++){
-            $mgrs[$i] = Place2::where('chief', '=', $i+1)->orderBy('id', 'desc')->get();            
+            $mgrs[$i] = Place2::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();            
         }
 /*
         $mem = Place2::all()->count();
         $engs = [];
         for($i=0; $i<$mem;$i++){
-            $lm = Place3::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
-            $engs[$i] = Place1Resource::collection($lm);              
+            $engs[$i] = Place3::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();             
         }
-
+*/
+/*
         $mem = Place3::all()->count();
         $prgs = [];
         for($i=0; $i<$mem;$i++){
@@ -73,7 +73,7 @@ class MainController extends Controller
 
         return view('main', compact('chiefs','deps','mgrs','engs','prgs'));
         */
-        return view('main', compact('chiefs','deps','mgrs'));
+        return view('main', compact('chiefs','deps','mgrs','engs'));
     }
 
     /**
