@@ -8,6 +8,13 @@
                 @foreach($deps[$chief->id-1] as $dep)
                     <li>
                         <h4>{{$dep->placeName->place}}: <b>{{$dep->name}}</b>, Salary: <b>{{$dep->salary}}</b>, Employment: <b>{{$dep->created_at}}</b>, Boss: {{$dep->chiefName->name}}</h4></li>
+                        <ul>
+                            @foreach($mgrs[$dep->id-1] as $mgr)
+                            <li><h5>{{$mgr->placeName->place}}: <b>{{$mgr->name}}</b>, Salary: <b>{{$mgr->salary}}</b>, Employment: <b>{{$mgr->created_at}}</b>, Boss: {{$mgr->chiefName->name}}</h5>
+                                <!-- -->
+                            </li>
+                            @endforeach
+                        </ul>
                 @endforeach
             </ul>
         </li>
