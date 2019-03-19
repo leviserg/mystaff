@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use View;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Place;
 use App\Place0;
 use App\Place1;
@@ -46,15 +45,13 @@ class MainController extends Controller
 
         $deps = [];
         for($i=0; $i<count($chiefs); $i++){
-            //$ld = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
-            //$deps[$i] = Place1Resource::collection($ld);
-            $deps[$i] = Place1::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();
+            $deps[$i] = Place1::where('chief', '=', $i+1)->get();
         }
 
         $mem = Place1::all()->count();
         $mgrs = [];
         for($i=0; $i<$mem;$i++){
-            $mgrs[$i] = Place2::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();            
+            $mgrs[$i] = Place2::where('chief', '=', $i+1)->get();            
         }
 /*
         $mem = Place2::all()->count();
@@ -148,5 +145,31 @@ class MainController extends Controller
             $data[] =  $row;
         }
         return $data;
+    }
+
+    public function fetch(Request $request)
+    {
+        $model_name = 'App\Place'.$request->level;
+        $select = $request->select;
+        $data = $model_name::where('chief', '=', $select)->get();
+        $output = '';
+        $linkClass = 'child-dynamic';
+        if($request->level>3){
+            $output .= '<div class="child" id="prgs'.$select.'">';
+            $linkClass = '';
+        }
+        $output .= '<ul>';
+        foreach($data as $row)
+        {
+            $output .= '<li>';
+            $output .= '<h'.($request->level+2).' class="'.$linkClass.'" id="'.$row->id.'">'.$row->placeName->place.': <b>'.$row->name.'</b>, Salary: <b>'.$row->salary.'</b>';
+            $output .=  'Employment: <b>'.$row->created_at.'</b>, Boss: '.$row->chiefName->name.'</h'.($request->level+2).'>';
+            $output .= '</li>';
+        }        
+        $output .= '</ul>';
+        if($request->level>3){
+            $output .= '</div>';
+        }
+        echo $output;
     }
 }

@@ -88,7 +88,7 @@
     <script src="{{ asset('js/popper.js') }}"></script>
     <script src = "{{ asset('js/jqueryDataTables.js') }}" defer ></script>
     <script src="{{ asset('js/app.js') }}"></script>
-        @stack('scripts')
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

@@ -41,7 +41,7 @@
                         },
                         "render": function(data, type, row, meta){
                             if(type === 'display'){
-                                data = '<div class="text-centered"><img src=' + data.avatar + ' class="img-thumbnail" width="35" height="35"></img></div>';
+                                data = '<img src=' + data.avatar + ' class="img-thumbnail" width="35" height="35"></img>';
                             }
                             return data;
                         }

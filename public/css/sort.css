@@ -28,3 +28,15 @@
 .btn-rst {
 	padding:0.25rem;
 }
+
+.dynamic:hover{
+	cursor: pointer;
+}
+
+.child{
+	display: none;
+}
+
+.child-dynamic:hover{
+	cursor: pointer;
+}
