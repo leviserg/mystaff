@@ -35,8 +35,16 @@
                     { data: 'salary', name: 'salary' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'chief_name', name: 'chief_name' },
-                    { "data": null,
-                        "defaultContent": "<img src='avatar'></img>"
+                    {
+                        "data":{
+                            "avatar":"avatar",
+                        },
+                        "render": function(data, type, row, meta){
+                            if(type === 'display'){
+                                data = '<div class="text-centered"><img src=' + data.avatar + ' class="img-thumbnail" width="35" height="35"></img></div>';
+                            }
+                            return data;
+                        }
                     },
                     { 
                         "data":{

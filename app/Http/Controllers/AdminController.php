@@ -55,8 +55,9 @@ class AdminController extends Controller
     {
         $model_name = 'App\Place'.($place-1);
         $persons = $model_name::where('id', $id)->get();
-        $data = Place1Resource::collection($persons);
-        return view('single', compact('persons'));
+        //$data = Place1Resource::collection($persons);
+        $data = $persons;
+        return view('single', compact('data'));
     }
 
     /**

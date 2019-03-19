@@ -46,10 +46,11 @@ class MainController extends Controller
 
         $deps = [];
         for($i=0; $i<count($chiefs); $i++){
-            $ld = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
-            $deps[$i] = Place1Resource::collection($ld);
+            //$ld = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
+            //$deps[$i] = Place1Resource::collection($ld);
+            $deps[$i] = Place1::where('chief', '=', $i+1)->orderBy('updated_at', 'desc')->get();
         }
-
+/*
         $mem = Place1::all()->count();
         $mgrs = [];
         for($i=0; $i<$mem;$i++){
@@ -72,6 +73,8 @@ class MainController extends Controller
         }
 
         return view('main', compact('chiefs','deps','mgrs','engs','prgs'));
+        */
+        return view('main', compact('chiefs','deps'));
     }
 
     /**

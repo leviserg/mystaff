@@ -11,6 +11,6 @@ class Place3TableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Place3::class, 1000)->create();
+        factory(App\Place3::class, 10000)->create();
     }
 }

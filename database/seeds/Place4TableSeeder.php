@@ -12,6 +12,6 @@ class Place4TableSeeder extends Seeder
     public function run()
     {
         //factory(App\Place4::class, 50000)->create();
-        factory(App\Place4::class, 5000)->create();
+        factory(App\Place4::class, 50000)->create();
     }
 }
