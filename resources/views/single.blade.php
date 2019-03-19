@@ -7,20 +7,22 @@
             <div class="card">
                 <div class="card-header">{{$person->placeName->place}} <b>{{$person->name}}</b></div>
                 <div class="card-body">
-                    <div class="col-md-10">
-                        <form action="/admin/{{$person->place}}/{{$person->id}}" method="POST" class="form">
+                    <div class="col-md-12">
+                        <form enctype="multipart/form-data" action="/admin/{{$person->place}}/{{$person->id}}" method="POST" class="form">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-6">
                                         <label class="control-label">Person Place <b>{{$person->placeName->place}}</b></label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <img src="{{$person->avatar}}" class="pull-right img-responsive"/>
+                                    <div class="col-md-3">
+                                        <img src="/{{$person->avatar}}" class="pull-right img-responsive" width="200" height="200"/><br/>
                                         <label for="user_image" class="ml-2"> Select Image </label>
                                             <input type="file" name="user_image" id="user_image"/>
-                                        <span id="uploaded_img"></span>
+                                        <span id="uploaded_img"></span><br/>
+                                        <span>{{$person->avatar}}</span>
                                     </div>
+                                    <div class="col-md-1"></div>                                   
                                 </div>
                                     <input name="curplace" style="display: none" value="{{$person->place}}">
                                     <input name="curid" style="display: none" value="{{$person->id}}">

@@ -88,8 +88,22 @@ class AdminController extends Controller
 
     public function store(Request $request){
         $model_name = 'App\Place'.($request->curplace-1);
+        $this->validate($request, [
+            'user_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $fileName = '';
+        if ($request->hasFile('user_image')) {
+            $image = $request->file('user_image');
+            $name = $request->curplace.'_'.$request->curid.'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $fileName = 'images/'.$name;
+            //$fileName = $name;
+            $image->move($destinationPath, $name);
+        }
+        //    $this->save();
+        //    return back()->with('success','Image Upload successfully');
         $model_name::where('id', '=', $request->curid)
-            ->update(['name' => $request->personName,'salary' => $request->personSal]);
+            ->update(['name' => $request->personName,'salary' => $request->personSal, 'avatar' => $fileName]);
         return redirect('/admin');
     }
 
