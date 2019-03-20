@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,11 +15,8 @@ Route::get('/', function () {
 });
 */
 Route::get('/','MainController@index');
-
 Auth::routes();
-
 Route::get('/home', 'AdminController@index');
-
 Route::get('/admin', 'AdminController@admin')->name('admin');
 Route::get('/admin/getdata', 'AdminController@getdata')->name('admin.getdata');
 Route::get('/admin/{place}/{id}','AdminController@getsingle');

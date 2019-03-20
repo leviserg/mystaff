@@ -13,8 +13,7 @@
                             <li><h5 class="dynamic" id="{{$mgr->id}}">{{$mgr->placeName->place}}: <b>{{$mgr->name}}</b>, Salary: <b>{{$mgr->salary}}</b>, Employment: <b>{{$mgr->created_at}}</b>, Boss: {{$mgr->chiefName->name}}</h5>
                                 <div id="engs{{$mgr->id}}" class="child">
                                     <!--                               
-                                        <ul>
-                                        </ul>
+                                        child branch
                                     -->
                                 </div>
                             </li>
@@ -29,11 +28,10 @@
 @endsection
 @push('scripts')
     <script>
+    
         $(function() {
-
             $('.dynamic').click(function(){
                 var select = this.id;
-                var level = 3;
                 var _token = $('input[name="_token"]').val();
                 if($("#engs" + select).is(":hidden")){
                     if($("#engs" + select).is(":empty")){
@@ -41,7 +39,6 @@
                             url:"{{ route('main.fetch') }}",
                             method:"POST",
                             data:({
-                                level:level,
                                 select:select,
                                 _token:_token
                                 }),
@@ -55,40 +52,9 @@
                 }
                 else{
                     $("#engs" + select).hide();
-                }
-                
+                }   
             });
-
-            $('.child-dynamic').click(function(){
-                var select = this.id;
-                var level = 4;
-                var _token = $('input[name="_token"]').val();
-                console.log(select);
-                /*
-                if($("#prgs" + select).is(":hidden")){
-                    if($("#prgs" + select).is(":empty")){
-                        $.ajax({
-                            url:"{{ route('main.fetch') }}",
-                            method:"POST",
-                            data:({
-                                level:level,
-                                select:select,
-                                _token:_token
-                                }),
-                            dataType: "html",
-                            success: function(result){
-                                $(result).appendTo("#prgs" + select);
-                            }
-                        }); 
-                    }
-                    $("#prgs" + select).show();
-                }
-                else{
-                    $("#prgs" + select).hide();
-                }
-                */              
-            });
-            
         });
+    
     </script>
 @endpush

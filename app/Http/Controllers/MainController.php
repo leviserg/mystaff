@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use View;
 use Illuminate\Http\Request;
@@ -9,11 +8,9 @@ use App\Place1;
 use App\Place2;
 use App\Place3;
 use App\Place4;
-use DB;
 use App\Http\Resources\PlaceResource;
 use App\Http\Resources\Place0Resource;
 use App\Http\Resources\Place1Resource;
-
 class MainController extends Controller
 {
     /**
@@ -23,53 +20,17 @@ class MainController extends Controller
      */
     public function index()
     {
-/*
-        $chief = Place0::all();
-        $chiefs = $this->toArray($chief);
-
-        $dep = Place1::orderBy('chief', 'asc')->get()->groupBy('chief');
-        $deps = $this->toArray($dep);
-
-        $mgr = Place2::orderBy('chief', 'asc')->get()->groupBy('chief');
-        $mgrs = $this->toArray($mgr);
-
-        $eng = Place3::orderBy('chief', 'asc')->get()->groupBy('chief');
-        $engs = $this->toArray($eng); 
-
-        $prg = Place4::orderBy('chief', 'asc')->get()->groupBy('chief');
-        $prgs = $this->toArray($prg);
-*/
-
         $mem = Place0::orderBy('updated_at', 'desc')->get();
         $chiefs = Place0Resource::collection($mem);
-
         $deps = [];
         for($i=0; $i<count($chiefs); $i++){
             $deps[$i] = Place1::where('chief', '=', $i+1)->get();
         }
-
         $mem = Place1::all()->count();
         $mgrs = [];
         for($i=0; $i<$mem;$i++){
             $mgrs[$i] = Place2::where('chief', '=', $i+1)->get();            
         }
-/*
-        $mem = Place2::all()->count();
-        $engs = [];
-        for($i=0; $i<$mem;$i++){
-            $engs[$i] = Place3::where('chief', '=', $i+1)->orderBy('chief', 'desc')->get();             
-        }
-*/
-/*
-        $mem = Place3::all()->count();
-        $prgs = [];
-        for($i=0; $i<$mem;$i++){
-            $lm = Place4::where('chief', '=', $i+1)->get();
-            $prgs[$i] = Place1Resource::collection($lm);              
-        }
-
-        return view('main', compact('chiefs','deps','mgrs','engs','prgs'));
-        */
         return view('main', compact('chiefs','deps','mgrs','engs'));
     }
 
@@ -82,7 +43,6 @@ class MainController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -93,7 +53,6 @@ class MainController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -104,7 +63,6 @@ class MainController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -115,7 +73,6 @@ class MainController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -127,7 +84,6 @@ class MainController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -138,7 +94,6 @@ class MainController extends Controller
     {
         //
     }
-
     private function toArray($collection){
         $data = array();
         foreach($collection as $row){
@@ -149,27 +104,29 @@ class MainController extends Controller
 
     public function fetch(Request $request)
     {
-        $model_name = 'App\Place'.$request->level;
+        $model_name = 'App\Place3';
         $select = $request->select;
         $data = $model_name::where('chief', '=', $select)->get();
         $output = '';
         $linkClass = 'child-dynamic';
-        if($request->level>3){
-            $output .= '<div class="child" id="prgs'.$select.'">';
-            $linkClass = '';
-        }
         $output .= '<ul>';
         foreach($data as $row)
         {
             $output .= '<li>';
-            $output .= '<h'.($request->level+2).' class="'.$linkClass.'" id="'.$row->id.'">'.$row->placeName->place.': <b>'.$row->name.'</b>, Salary: <b>'.$row->salary.'</b>';
-            $output .=  'Employment: <b>'.$row->created_at.'</b>, Boss: '.$row->chiefName->name.'</h'.($request->level+2).'>';
-            $output .= '</li>';
+            $output .= '<h6 class="'.$linkClass.'" id="'.$row->id.'">'.$row->placeName->place.': <b>'.$row->name.'</b>, Salary: <b>'.$row->salary.'</b>';
+            $output .=  'Employment: <b>'.$row->created_at.'</b>, Boss: '.$row->chiefName->name.'</h6>';
+            $output .= '<ul>';
+            $child_model = 'App\Place4';
+            $child_data = $child_model::where('chief', '=', $row->id)->get();
+            foreach($child_data as $child){
+                $output .= '<li>';
+                $output .= '<i>'.$child->placeName->place.': <b>'.$child->name.'</b>, Salary: <b>'.$child->salary.'</b>';
+                $output .=  'Employment: <b>'.$child->created_at.'</b>, Boss: '.$child->chiefName->name.'</i>';
+                $output .= '</li>';
+            }
+            $output .= '</ul></li>';
         }        
         $output .= '</ul>';
-        if($request->level>3){
-            $output .= '</div>';
-        }
         echo $output;
     }
 }
