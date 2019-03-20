@@ -8,6 +8,4 @@
     <br/>--------------<br/>
     <li>You may edit staff members when you're logged as admin + upload user image</li>
 </ul>
-<p>Rest crud tasks I have not done because of lack of time (insert & delete) - it's easy to realize</p>
-<p>Task 2/11 I think I could have done when meet closer with technology</p>
 
