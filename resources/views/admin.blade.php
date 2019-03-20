@@ -27,7 +27,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('admin.getdata') !!}',
-                columns: [
+                aoColumns: [
                     { data: 'id', name: 'id' },
                     { data: 'place', name: 'place' },
                     { data: 'place_name', name: 'place_name' },
@@ -59,18 +59,22 @@
                         }
                     } 
                 ],
-                columnDefs:[
+                aoColumnDefs:[
                     {
                         "searchable": false,
-                        "targets": [0,1,2,6,7,8] 
+                        "aTargets": [0,1,2,6,7,8] 
+                    },
+                    {
+                        "searchable": true,
+                        "aTargets": [3,4,5] 
                     },
                     {
                         "orderable":false,
-                        "targets":[7,8]
+                        "aTargets":[7,8]
                     },
                     {
                         "visible": false,
-                        "targets": [1]
+                        "aTargets": [1]
                     }
                 ]
             });
