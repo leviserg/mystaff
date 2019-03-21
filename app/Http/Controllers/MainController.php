@@ -34,6 +34,34 @@ class MainController extends Controller
         return view('main', compact('chiefs','deps','mgrs','engs'));
     }
 
+    public function fetch(Request $request)
+    {
+        $model_name = 'App\Place3';
+        $select = $request->select;
+        $data = $model_name::where('chief', '=', $select)->get();
+        $output = '';
+        $linkClass = 'child-dynamic';
+        $output .= '<ul>';
+        foreach($data as $row)
+        {
+            $output .= '<li>';
+            $output .= '<h6 class="'.$linkClass.'" id="'.$row->id.'">'.$row->placeName->place.': <b>'.$row->name.'</b>, Salary: <b>'.$row->salary.'</b>';
+            $output .=  'Employment: <b>'.$row->created_at.'</b>, Boss: '.$row->chiefName->name.'</h6>';
+            $output .= '<ul>';
+            $child_model = 'App\Place4';
+            $child_data = $child_model::where('chief', '=', $row->id)->get();
+            foreach($child_data as $child){
+                $output .= '<li>';
+                $output .= '<i>'.$child->placeName->place.': <b>'.$child->name.'</b>, Salary: <b>'.$child->salary.'</b>';
+                $output .=  'Employment: <b>'.$child->created_at.'</b>, Boss: '.$child->chiefName->name.'</i>';
+                $output .= '</li>';
+            }
+            $output .= '</ul></li>';
+        }        
+        $output .= '</ul>';
+        echo $output;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -94,39 +122,11 @@ class MainController extends Controller
     {
         //
     }
-    private function toArray($collection){
+    public function toArray($collection){
         $data = array();
         foreach($collection as $row){
             $data[] =  $row;
         }
         return $data;
-    }
-
-    public function fetch(Request $request)
-    {
-        $model_name = 'App\Place3';
-        $select = $request->select;
-        $data = $model_name::where('chief', '=', $select)->get();
-        $output = '';
-        $linkClass = 'child-dynamic';
-        $output .= '<ul>';
-        foreach($data as $row)
-        {
-            $output .= '<li>';
-            $output .= '<h6 class="'.$linkClass.'" id="'.$row->id.'">'.$row->placeName->place.': <b>'.$row->name.'</b>, Salary: <b>'.$row->salary.'</b>';
-            $output .=  'Employment: <b>'.$row->created_at.'</b>, Boss: '.$row->chiefName->name.'</h6>';
-            $output .= '<ul>';
-            $child_model = 'App\Place4';
-            $child_data = $child_model::where('chief', '=', $row->id)->get();
-            foreach($child_data as $child){
-                $output .= '<li>';
-                $output .= '<i>'.$child->placeName->place.': <b>'.$child->name.'</b>, Salary: <b>'.$child->salary.'</b>';
-                $output .=  'Employment: <b>'.$child->created_at.'</b>, Boss: '.$child->chiefName->name.'</i>';
-                $output .= '</li>';
-            }
-            $output .= '</ul></li>';
-        }        
-        $output .= '</ul>';
-        echo $output;
     }
 }

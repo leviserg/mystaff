@@ -32,15 +32,18 @@
         $(function() {
             $('.dynamic').click(function(){
                 var select = this.id;
-                var _token = $('input[name="_token"]').val();
+                //var _token = $('input[name="_token"]').val();
                 if($("#engs" + select).is(":hidden")){
                     if($("#engs" + select).is(":empty")){
                         $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             url:"{{ route('main.fetch') }}",
                             method:"POST",
                             data:({
                                 select:select,
-                                _token:_token
+                                _token:'{{csrf_token()}}'
                                 }),
                             dataType: "html",
                             success: function(result){
