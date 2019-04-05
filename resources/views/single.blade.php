@@ -16,7 +16,7 @@
                                         <label class="control-label">Person Place <b>{{$person->placeName->place}}</b></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <img src="/{{$person->avatar}}" class="pull-right img-responsive" width="200" height="200"/><br/>
+                                        <img src="{{$person->avatar}}" class="pull-right img-responsive" width="200" height="200"/><br/>
                                         <label for="user_image" class="ml-2"> Select Image </label>
                                             <input type="file" name="user_image" id="user_image"/>
                                         <span id="uploaded_img"></span><br/>
@@ -39,7 +39,7 @@
                                 <div class="mt-2 row">                       
                                     <div class="col-md-6">
                                         <a href="/admin" class="btn btn-success mr-2" style="width:30%">Back</a>
-                                        <button type="submit" class="btn btn-info ml-2" style="width:30%">Change</button>
+                                        <button type="submit" class="btn btn-info ml-2" style="width:30%">Save</button>
                                     </div>
                                 </div>
                             </div>

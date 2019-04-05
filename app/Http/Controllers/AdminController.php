@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 //use App\Http\Requests;
 Use DB;
+Use File;
+Use Image;
 use App\User;
 use App\Place;
 use App\Place0;
@@ -87,23 +89,27 @@ class AdminController extends Controller
     }
 
     public function store(Request $request){
+        
         $model_name = 'App\Place'.($request->curplace-1);
-        $this->validate($request, [
-            'user_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
         $fileName = '';
         if ($request->hasFile('user_image')) {
+            
+            $this->validate($request, [
+                'user_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            
             $image = $request->file('user_image');
             $name = $request->curplace.'_'.$request->curid.'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
-            $fileName = 'images/'.$name;
-            //$fileName = $name;
+            $imgdbrecord = '/public/images/'.$name;
             $image->move($destinationPath, $name);
+            $model_name::where('id', '=', $request->curid)
+                ->update(['name' => $request->personName,'salary' => $request->personSal, 'avatar' => $imgdbrecord]);
         }
-        //    $this->save();
-        //    return back()->with('success','Image Upload successfully');
-        $model_name::where('id', '=', $request->curid)
-            ->update(['name' => $request->personName,'salary' => $request->personSal, 'avatar' => $fileName]);
+        else{
+            $model_name::where('id', '=', $request->curid)
+                ->update(['name' => $request->personName,'salary' => $request->personSal]);
+        }       
         return redirect('/admin');
     }
 

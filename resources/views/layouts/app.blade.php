@@ -14,17 +14,17 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatable.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sort.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/datatable.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/sort.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet" >
 
     <!-- Scripts -->
-    <script src="{{ asset('js/html5shiv.js') }}"></script>
-    <script src="{{ asset('js/response.js') }}"></script>
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/popper.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('public/js/html5shiv.js') }}"></script>
+    <script src="{{ asset('public/js/response.js') }}"></script>
+    <script src="{{ asset('public/js/jquery.js') }}"></script>
+    <script src="{{ asset('public/js/popper.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap.js') }}"></script>
 
 </head>
 <body>
@@ -37,7 +37,14 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                    @guest
+                    @else
+                        @if(Auth::user()->level>=2)
+                        <a class="navbar-brand ml-2" href="{{ url('/admin') }}">
+                            DataTable 
+                        </a>
+                        @endif
+                    @endguest
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -84,11 +91,11 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/popper.js') }}"></script>
-    <script src = "{{ asset('js/jqueryDataTables.js') }}" defer ></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('public/js/jquery.js') }}"></script>
+    <script src="{{ asset('public/js/popper.js') }}"></script>
+    <script src="{{ asset('public/js/jqueryDataTables.js') }}" defer ></script>
+    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
